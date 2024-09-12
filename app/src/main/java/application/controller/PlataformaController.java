@@ -6,90 +6,90 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import application.model.Categoria;
-import application.repository.CategoriaRepository;
+import application.model.Plataforma;
+import application.repository. PlataformaRepository;
 
 @Controller
-@RequestMapping("/categoria")
-public class CategoriaController {
+@RequestMapping("/plataforma")
+public class PlataformaController {
+
     @Autowired
-    private CategoriaRepository categoriaRepo;
+    private PlataformaRepository plataformaRepo;
 
     @RequestMapping("/list")
     public String list (Model ui) {
-        ui.addAttribute("categorias", categoriaRepo.findAll());
-        return "categoria/list";
+        ui.addAttribute("plataformas", plataformaRepo.findAll());
+        return "plataforma/list";
     }
 
     @RequestMapping("/insert")
     public String insert() { 
-        return "categoria/insert";
+        return "plataforma/insert";
     }
 
-    @RequestMapping(value = "/insert", method = RequestMethod.POST) 
+    @RequestMapping(value = "/insert", method = RequestMethod.POST)
     public String insert (@RequestParam("nome") String nome) { 
-        Categoria categoria = new Categoria(); 
-        categoria.setNome (nome);
+        Plataforma plataforma = new Plataforma(); 
+        plataforma.setNome (nome);
 
-        categoriaRepo.save(categoria);
+        plataformaRepo.save(plataforma);
 
-        return "redirect:/categoria/list";
+        return "redirect:/plataforma/list";
     }
 
-        @RequestMapping("/update")
-        public String update( 
-            @RequestParam("id") long id,
-            Model ui) {
+    @RequestMapping("/update")
+    public String update( 
+        @RequestParam("id") long id, 
+        Model ui) {
 
-            Optional<Categoria> categoria = categoriaRepo.findById(id);
-            if(categoria.isPresent()) { 
-                ui.addAttribute("categoria", categoria.get()); 
-                return "categoria/update";
-            }
+        Optional<Plataforma> plataforma = plataformaRepo.findById(id);
+        
+        if(plataforma.isPresent()) { 
+            ui.addAttribute("plataforma", plataforma.get()); 
+            return "plataforma/update";
+        }
+        
+        return "redirect:/plataforma/list";
+    }
 
-            return "redirect:/categoria/list";
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public String update(
+        @RequestParam("id") long id,
+        @RequestParam("nome") String nome) {
 
+        Optional<Plataforma> plataforma = plataformaRepo.findById(id);
+
+        if (plataforma.isPresent()) { 
+            plataforma.get().setNome (nome);
+
+            plataformaRepo.save(plataforma.get());
         }
 
-        @RequestMapping(value = "/update", method = RequestMethod.POST)
-        public String update(
-            @RequestParam("id") long id,
-            @RequestParam("nome") String nome ) {
-            
-                Optional<Categoria> categoria = categoriaRepo.findById(id);
-            
-            if(categoria.isPresent()) {
-                categoria.get().setNome (nome);
-                
-                categoriaRepo.save(categoria.get());
-            }
-
-        return "redirect:/categoria/list";
-
+        return "redirect:/plataforma/list";
     }
-
+    
     @RequestMapping("/delete")
     public String delete( 
         @RequestParam("id") long id, 
         Model ui) {
 
-        Optional<Categoria> categoria = categoriaRepo.findById(id);
-        
-        if(categoria.isPresent()) {
-            ui.addAttribute("categoria", categoria.get());
-            return "categoria/delete";
-        }
+        Optional<Plataforma> plataforma = plataformaRepo.findById(id);
 
-        return "redirect:/categoria/list";
+        if (plataforma.isPresent()) {
+            ui.addAttribute("plataforma", plataforma.get());
+            return "plataforma/delete"; 
+        }   
+
+        return "redirect:/plataforma/list";
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/delete", method = RequestMapping.POST)
     public String delete(@RequestParam("id") long id) {
-        categoriaRepo.deleteById(id);
-        
-        return "redirect:/categoria/list";
+        plataformaRepo.deleteById(id);
+
+        return "redirect:/plataforma/list";
     }
 }
