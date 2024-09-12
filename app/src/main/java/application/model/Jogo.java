@@ -9,37 +9,43 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Jointable;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence. ManyToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "jogos")
 public class Jogo {
     @Id
-    @GeneratedValue(strategy = GenerationType. IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @Column(nullable = true)
     private String titulo;
 
     @ManyToOne
-    @JoinColumn(name = "id genero")
+    @JoinColumn(name = "id_genero")
     private Categoria categoria;
 
     @ManyToMany
     @JoinTable(
         name = "jogos_possuem_plataformas",
-        joincolumns = @JoinColumn(name = "id jogos"),
-        inverseJoinColumns = @JoinColumn(name = "id_plataformas"))
+        joinColumns = @JoinColumn(name = "id_jogo"),
+        inverseJoinColumns = @JoinColumn(name = "id_plataforma"))
     private Set<Plataforma> plataformas = new HashSet<>();
 
+    // Getters and setters
     public long getId() {
         return id;
     }
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getTitulo() {
+        return titulo;
     }
 
     public void setTitulo(String titulo) {
@@ -52,7 +58,7 @@ public class Jogo {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
-    }   
+    }
 
     public Set<Plataforma> getPlataformas() {
         return plataformas;
