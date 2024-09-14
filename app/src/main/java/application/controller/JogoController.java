@@ -20,6 +20,7 @@ import application.repository.PlataformaRepository;
 @Controller
 @RequestMapping("/jogo")
 public class JogoController {
+    
     @Autowired
     private JogoRepository jogoRepo;
 
