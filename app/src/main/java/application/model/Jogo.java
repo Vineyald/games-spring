@@ -9,7 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Jointable;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence. ManyToOne;
 import jakarta.persistence.Table;
@@ -30,8 +30,10 @@ public class Jogo {
     @ManyToMany
     @JoinTable(
         name = "jogos_possuem_plataformas",
-        joincolumns = @JoinColumn(name = "id jogos"),
-        inverseJoinColumns = @JoinColumn(name = "id_plataformas"))
+        joinColumns = @JoinColumn(name = "id jogos"),
+        inverseJoinColumns = @JoinColumn(name = "id_plataformas")
+    )
+
     private Set<Plataforma> plataformas = new HashSet<>();
 
     public long getId() {

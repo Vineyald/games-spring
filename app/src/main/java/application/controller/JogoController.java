@@ -46,15 +46,17 @@ public class JogoController {
         @RequestParam("categoria") long idCategoria,
         @RequestParam("plataformas") long[] idsPlataformas) {
         
-        jogo = new Jogo();
+        Jogo jogo = new Jogo();
         jogo.setTitulo(titulo);
         jogo.setCategoria (categoriaRepo.findById(idCategoria).get());
+        
         for(long p : idsPlataformas) {
             Optional<Plataforma> plataforma = plataformaRepo.findById(p);
             if(plataforma.isPresent()) {
                 jogo.getPlataformas().add(plataforma.get());
             }
         }
+        
         jogoRepo.save(jogo);
         return "redirect:/jogo/list";
     }

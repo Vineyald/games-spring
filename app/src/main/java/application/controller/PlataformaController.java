@@ -86,7 +86,7 @@ public class PlataformaController {
         return "redirect:/plataforma/list";
     }
 
-    @RequestMapping(value = "/delete", method = RequestMapping.POST)
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String delete(@RequestParam("id") long id) {
         plataformaRepo.deleteById(id);
 
