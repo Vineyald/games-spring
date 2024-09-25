@@ -35,7 +35,6 @@ public class CategoriaController {
         categoria.setNome (nome);
 
         categoriaRepo.save(categoria);
-
         return "redirect:/categoria/list";
     }
 

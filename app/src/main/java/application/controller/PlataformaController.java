@@ -10,12 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import application.model.Plataforma;
-import application.repository. PlataformaRepository;
+import application.repository.PlataformaRepository;
 
 @Controller
 @RequestMapping("/plataforma")
 public class PlataformaController {
-
     @Autowired
     private PlataformaRepository plataformaRepo;
 

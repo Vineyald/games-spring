@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import application.model.Jogo;
 import application.model.Plataforma;
 import application.repository.CategoriaRepository;
-import application.repository. JogoRepository;
-import application.repository. PlataformaRepository;
+import application.repository.JogoRepository;
+import application.repository.PlataformaRepository;
 
 @Controller
 @RequestMapping("/jogo")
